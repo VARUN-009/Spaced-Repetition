@@ -1,63 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mind Palace Repetition</title>
+  <title>🧠 Mind Palace Repetition</title>
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
   <style>
     body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f0f4ff;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  height: 100vh;
-  overflow: hidden; /* 🔒 Prevent horizontal scroll */
-}
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      /* 🔒 Prevent horizontal scroll */
+    }
 
-#calendar {
-  width: 50vw; /* Use viewport width to ensure fit */
-  padding: 1rem;
-  background: #fff;
-  border-right: 2px solid #ccc;
-  overflow-y: auto;
-  box-sizing: border-box;
-  min-width: 300px;
-}
+    #calendar {
+      width: 50vw;
+      /* Use viewport width to ensure fit */
+      padding: 1rem;
+      background: #fff;
+      border-right: 2px solid #ccc;
+      overflow-y: auto;
+      box-sizing: border-box;
+      min-width: 300px;
+    }
 
-#todayView {
-  width: 50vw;
-  padding: 1rem;
-  background: #fdfdfd;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  box-sizing: border-box;
-  min-width: 250px;
-}
+    #todayView {
+      width: 50vw;
+      padding: 1rem;
+      background: #fdfdfd;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      box-sizing: border-box;
+      min-width: 250px;
+    }
 
     h2 {
       margin-top: 0;
     }
+
     .topic-input {
       display: flex;
       margin-bottom: 1rem;
       gap: 0.5rem;
     }
-    input, select, button, textarea {
+
+    input,
+    select,
+    button,
+    textarea {
       padding: 0.5rem;
       font-size: 1rem;
     }
+
     .tag {
       font-weight: bold;
     }
+
     ul {
       list-style: none;
       padding-left: 0;
     }
+
     li.topic {
       background: #e0ecff;
       margin-bottom: 0.5rem;
@@ -94,11 +103,13 @@
     .checkbox {
       margin-left: 1rem;
     }
+
     .actions {
       display: flex;
       justify-content: flex-end;
       margin-top: 0.3rem;
     }
+
     .actions button {
       margin-left: 0.5rem;
     }
@@ -119,43 +130,54 @@
 
     /* Thicker black edges for perimeter effect */
     .fc-daygrid-day:first-child:not(.fc-day-other),
-    .fc-daygrid-day:nth-child(7n):not(.fc-day-other),  /* Rightmost column */
-    .fc-daygrid-day:nth-child(7n+1):not(.fc-day-other),/* Leftmost column */
+    .fc-daygrid-day:nth-child(7n):not(.fc-day-other),
+    /* Rightmost column */
+    .fc-daygrid-day:nth-child(7n+1):not(.fc-day-other),
+    /* Leftmost column */
     .fc-daygrid-day:last-child:not(.fc-day-other) {
       border-width: 3px !important;
       border-color: black !important;
     }
 
     .topic {
-  padding: 0.5rem;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+      padding: 0.5rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .topic.maths {
-        background-color: #ffcdd2; /* light red */
-        color: #b71c1c;
-      }
-      .topic.reasoning {
-        background-color: #c8e6c9; /* light green */
-        color: #1b5e20;
-      }
-      .topic.english {
-        background-color: #bbdefb; /* light blue */
-        color: #0d47a1;
-      }
-      .topic.gk {
-        background-color: #ffe0b2; /* light orange */
-        color: #e65100;
-      }
-      .topic.miscellaneous {
-        background-color: #fff9c4; /* light yellow */
-        color: #f57f17;
-      }
+    .topic.maths {
+      background-color: #ffcdd2;
+      /* light red */
+      color: #b71c1c;
+    }
+
+    .topic.reasoning {
+      background-color: #c8e6c9;
+      /* light green */
+      color: #1b5e20;
+    }
+
+    .topic.english {
+      background-color: #bbdefb;
+      /* light blue */
+      color: #0d47a1;
+    }
+
+    .topic.gk {
+      background-color: #ffe0b2;
+      /* light orange */
+      color: #e65100;
+    }
+
+    .topic.miscellaneous {
+      background-color: #fff9c4;
+      /* light yellow */
+      color: #f57f17;
+    }
 
 
     /* Optional: improve contrast for buttons inside */
@@ -177,19 +199,85 @@
     }
 
     button:hover {
-      background-color: #60a5fa; /* light blue */
+      background-color: #60a5fa;
+      /* light blue */
       color: white;
       transform: scale(1.05);
     }
 
+    /* Make calendar event cursor a pointer */
+    .fc-event {
+      cursor: pointer;
+    }
+
+    #xpDisplay {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #FFD700;
+      background-color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      margin: 10px 0;
+    }
+
+    #levelDisplay,
+    #streakDisplay {
+      font-size: 1.2rem;
+      margin-top: 5px;
+      font-weight: bold;
+      color: #FFD700;
+    }
 
 
+    .statBox {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffeb3b;
+      background-color: #000;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 0, 0.4);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .xpBox {
+      background-color: black;
+      color: yellow;
+      font-size: 24px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 12px yellow;
+    }
+
+    .xpBox.flash {
+      animation: pulseXP 0.4s;
+    }
+
+    @keyframes pulseXP {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
   </style>
 </head>
+
 <body>
   <div id="calendar"></div>
   <div id="todayView">
-    <div id="calendarModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
+    <div id="calendarModal"
+      style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
       background:#fff; padding:20px; border:2px solid #ccc; border-radius:8px; z-index:1000; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
       <h3 id="modalTitle"></h3>
       <p id="modalTag"></p>
@@ -198,7 +286,18 @@
       <br><br>
       <button onclick="closeModal()">Close</button>
     </div>
-    <div id="modalOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.3); z-index:999;" onclick="closeModal()"></div>
+    <div id="modalOverlay"
+      style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.3); z-index:999;"
+      onclick="closeModal()"></div>
+
+    <div id="xpSection" class="xpBox">
+      ⭐ XP: <span id="xpDisplay">0</span> &nbsp; | &nbsp;
+      🏅 Level: <span id="levelDisplay">1</span> &nbsp; | &nbsp;
+      🔥 Streak: <span id="streakDisplay">0</span>
+    </div>
+
+
+    <!-- <button onclick="resetXPData()">🔄 Reset XP, Level, Streak</button> -->
 
     <h2 id="todayHeader">📆 Today's View</h2>
     <div class="topic-input">
@@ -217,12 +316,16 @@
       <button onclick="exportData()">📤 Export</button>
       <input type="file" id="importFile" accept=".json" onchange="importData()" style="display: none;" />
       <button onclick="document.getElementById('importFile').click()">📥 Import</button>
+      <button onclick="resetTodayReviews()">🔄 Reset All Reviews</button>
     </div>
 
     <h3>✅ Topics to Review Today</h3>
     <ul id="reviewList"></ul>
     <h3>🆕 Topics Added Today</h3>
     <ul id="todayTopics"></ul>
+    <!-- <h3>⚠️ Missed Reviews</h3>
+    <ul id="missedTopics"></ul> -->
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
@@ -232,15 +335,42 @@
     const calendarEl = document.getElementById('calendar');
     const todayList = document.getElementById('todayTopics');
     const reviewList = document.getElementById('reviewList');
+    const missedList = document.getElementById('missedTopics');
+
     let modalTopicIndex = null;
     let modalGroupId = null;
 
     function openModal(topic) {
+      const modal = document.getElementById('calendarModal');
+      const overlay = document.getElementById('modalOverlay');
+
+      const scheduledDate = new Date(topic.date);
+      const formattedScheduled = scheduledDate.toLocaleString('en-IN', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', hour12: true
+      });
+
+      let reviewedText = '';
+      if (topic.reviewedOn) {
+        const reviewedDate = new Date(topic.reviewedOn);
+        reviewedText = `<div>✅ Reviewed On: <strong>${reviewedDate.toLocaleString('en-IN', {
+          day: '2-digit', month: '2-digit', year: 'numeric',
+          hour: '2-digit', minute: '2-digit', hour12: true
+        })}</strong></div>`;
+      }
+
       document.getElementById('modalTitle').textContent = topic.name;
-      document.getElementById('modalTag').textContent = `📌 ${topic.tag}`;
-      document.getElementById('calendarModal').style.display = 'block';
-      document.getElementById('modalOverlay').style.display = 'block';
+      document.getElementById('modalTag').innerHTML = `
+          <div>🏷️ <strong>${topic.tag}</strong></div>
+          <div>📅 Scheduled On: <strong>${formattedScheduled}</strong></div>
+          ${reviewedText}
+          ${topic.note ? `<div>📝 ${topic.note}</div>` : ''}
+        `;
+
+      modal.style.display = 'block';
+      overlay.style.display = 'block';
     }
+
 
     function closeModal() {
       document.getElementById('calendarModal').style.display = 'none';
@@ -267,6 +397,53 @@
       }
       closeModal();
     }
+
+    const xpEl = document.getElementById('xpDisplay');
+    const levelEl = document.getElementById('levelDisplay');
+    const streakEl = document.getElementById('streakDisplay');
+
+    function updateGamificationUI() {
+      const xp = parseInt(localStorage.getItem('xp') || '0');
+      const level = Math.floor(xp / 100) + 1;
+      const streak = parseInt(localStorage.getItem('streak') || '0');
+
+      xpEl.textContent = xp;
+      levelEl.textContent = level;
+      streakEl.textContent = streak;
+    }
+
+
+    function addXP(amount) {
+      let xp = parseInt(localStorage.getItem('xp') || '0');
+      xp += amount;
+      localStorage.setItem('xp', xp);
+      xpEl.classList.add('xp-flash');
+      setTimeout(() => xpEl.classList.remove('xp-flash'), 1000);
+      updateGamificationUI();
+    }
+
+    function updateStreak() {
+      const today = new Date().toISOString().split('T')[0];
+      const lastReview = localStorage.getItem('lastReviewDate');
+      let streak = parseInt(localStorage.getItem('streak') || '0');
+
+      if (lastReview !== today) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yDate = yesterday.toISOString().split('T')[0];
+
+        if (lastReview === yDate) {
+          streak++;
+        } else {
+          streak = 1;
+        }
+        localStorage.setItem('streak', streak);
+        localStorage.setItem('lastReviewDate', today);
+      }
+      updateGamificationUI();
+    }
+
+
 
     let calendar;
     function updateTodayHeader() {
@@ -345,13 +522,67 @@
         storeTopics(topics);
         renderCalendar();
         renderTodayView();
+        renderMissedReviews();
       }
     }
+
+    function updateXPUI() {
+      const xp = parseInt(localStorage.getItem('xp') || '0');
+      const level = Math.floor(xp / 100) + 1;
+      const streak = parseInt(localStorage.getItem('streak') || '0');
+
+      document.getElementById('xpDisplay').textContent = xp;
+      document.getElementById('levelDisplay').textContent = level;
+      document.getElementById('streakDisplay').textContent = streak;
+    }
+
+
+    function addXP(amount = 10) {
+      const xp = parseInt(localStorage.getItem('xp') || '0') + amount;
+      localStorage.setItem('xp', xp);
+      flashXPSection();
+      updateXPUI();
+    }
+
+    function flashXPSection() {
+      const xpBox = document.getElementById('xpSection');
+      xpBox.classList.add('flash');
+      setTimeout(() => xpBox.classList.remove('flash'), 400);
+    }
+
+
+    function updateStreak() {
+      const lastDate = localStorage.getItem('lastReviewDate');
+      const todayDate = new Date().toISOString().split('T')[0];
+
+      if (lastDate === todayDate) return;
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+      let currentStreak = parseInt(localStorage.getItem('streak') || '0');
+      if (lastDate === yesterdayStr) {
+        currentStreak += 1;
+      } else {
+        currentStreak = 1;
+      }
+
+      localStorage.setItem('lastReviewDate', todayDate);
+      localStorage.setItem('streak', currentStreak);
+      updateXPUI();
+    }
+
 
     function renderTodayView() {
       const topics = getStoredTopics();
       todayList.innerHTML = '';
       reviewList.innerHTML = '';
+      const existingMissedSection = document.getElementById('missedReviews');
+      if (existingMissedSection) existingMissedSection.remove();
+
+      const missedReviews = [];
+      const now = new Date();
 
       topics.forEach((t, i) => {
         if (t.date === today) {
@@ -361,9 +592,10 @@
           const content = document.createElement('div');
           content.className = 'topic-content';
           content.innerHTML = `
-            <div class="name">${t.name} <span class="tag">[${t.tag}]</span></div>
-            ${t.note ? `<div class="note">📝 ${t.note}</div>` : ''}
-          `;
+        <div class="name">${t.name} <span class="tag">[${t.tag}]</span></div>
+        ${t.note ? `<div class="note">📝 ${t.note}</div>` : ''}
+        ${t.reviewedOn ? `<div class="note">✅ Reviewed: ${t.reviewedOn}</div>` : ''}
+      `;
 
           const actionDiv = document.createElement('div');
           actionDiv.className = 'actions';
@@ -386,69 +618,156 @@
             const cb = document.createElement('input');
             cb.type = 'checkbox';
             cb.className = 'checkbox';
-            cb.addEventListener('change', () => li.style.textDecoration = cb.checked ? 'line-through' : 'none');
+
+            if (t.reviewedOn) {
+              cb.checked = true;
+              li.style.textDecoration = 'line-through';
+            }
+
+            cb.addEventListener('change', () => {
+              const topics = getStoredTopics();
+              if (cb.checked) {
+                topics[i].reviewedOn = new Date().toLocaleString();
+                li.style.textDecoration = 'line-through';
+                addXP(10);         // ⭐ XP logic
+                updateStreak();    // 🔥 Streak logic
+              } else {
+                delete topics[i].reviewedOn;
+                li.style.textDecoration = 'none';
+              }
+              storeTopics(topics);
+              renderTodayView();
+              flashXPSection();  // Animate XP box
+
+            });
+
+
+
             li.appendChild(cb);
             reviewList.appendChild(li);
           } else {
             todayList.appendChild(li);
           }
         }
+
+        // Missed reviews logic
+        const reviewDate = new Date(t.date);
+        const isMissed = t.interval !== 0 && reviewDate < now;
+        if (isMissed) {
+          missedReviews.push({ ...t, index: i });
+        }
       });
+      if (missedReviews.length > 0) {
+        const section = document.createElement('div');
+        section.id = 'missedReviews';
+        section.innerHTML = `<h3>⚠️ Missed Reviews</h3>`;
+        const list = document.createElement('ul');
+
+        missedReviews.forEach(({ name, tag, note, date, index }) => {
+          const t = topics[index];
+          const li = document.createElement('li');
+          li.className = `topic ${tag.toLowerCase()}`;
+
+          const content = document.createElement('div');
+          content.className = 'topic-content';
+          content.innerHTML = `
+        <div class="name">${name} <span class="tag">[${tag}]</span></div>
+        <div class="note">📅 Due: ${date}</div>
+        ${note ? `<div class="note">📝 ${note}</div>` : ''}
+        ${t.completedOn ? `<div class="note">✅ Completed: ${t.completedOn}</div>` : ''}
+      `;
+
+          const actionDiv = document.createElement('div');
+          actionDiv.className = 'actions';
+
+          if (!t.completedOn) {
+            const doneBtn = document.createElement('button');
+            doneBtn.textContent = '✅ Done';
+            doneBtn.onclick = () => {
+              topics[index].completed = true;
+              topics[index].completedOn = new Date().toISOString().split('T')[0];
+              storeTopics(topics);
+              renderTodayView();
+            };
+            actionDiv.appendChild(doneBtn);
+          }
+
+          const delBtn = document.createElement('button');
+          delBtn.textContent = '🗑️';
+          delBtn.onclick = () => {
+            topics.splice(index, 1);
+            storeTopics(topics);
+            renderTodayView();
+            renderCalendar();
+          };
+          actionDiv.appendChild(delBtn);
+
+          li.appendChild(content);
+          li.appendChild(actionDiv);
+          list.appendChild(li);
+        });
+
+        section.appendChild(list);
+        document.getElementById('todayView').appendChild(section);
+      }
     }
+
 
     updateTodayHeader();
 
-   function renderCalendar() {
-    const tagColors = {
-    Maths: '#ffcdd2',
-    Reasoning: '#c8e6c9',
-    English: '#bbdefb',
-    GK: '#ffe0b2',
-    Miscellaneous: '#fff9c4'
-  };
 
-  const tagTextColors = {
-    Maths: '#b71c1c',
-    Reasoning: '#1b5e20',
-    English: '#0d47a1',
-    GK: '#e65100',
-    Miscellaneous: '#f57f17'
-  };
+    function renderCalendar() {
+      const tagColors = {
+        Maths: '#ffcdd2',
+        Reasoning: '#c8e6c9',
+        English: '#bbdefb',
+        GK: '#ffe0b2',
+        Miscellaneous: '#fff9c4'
+      };
 
-  const topics = getStoredTopics();
-  const events = topics.map((t, index) => ({
-    title: `${t.name}`,
-    start: t.date,
-    id: index.toString(),
-    backgroundColor: tagColors[t.tag],
-    borderColor: tagColors[t.tag],
-    textColor: tagTextColors[t.tag]
-  }));
+      const tagTextColors = {
+        Maths: '#b71c1c',
+        Reasoning: '#1b5e20',
+        English: '#0d47a1',
+        GK: '#e65100',
+        Miscellaneous: '#f57f17'
+      };
 
-  if (calendar) calendar.destroy();
+      const topics = getStoredTopics();
+      const events = topics.map((t, index) => ({
+        title: `${t.name}`,
+        start: t.date,
+        id: index.toString(),
+        backgroundColor: tagColors[t.tag],
+        borderColor: tagColors[t.tag],
+        textColor: tagTextColors[t.tag]
+      }));
 
-  calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    height: '100%',
-    events,
-    eventClick: function(info) {
-    const index = parseInt(info.event.id);
-    const topics = getStoredTopics();
-    modalTopicIndex = index;
-    modalGroupId = topics[index].groupId;
-    openModal(topics[index]);
-  }
+      if (calendar) calendar.destroy();
 
-  });
+      calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        height: '100%',
+        events,
+        eventClick: function (info) {
+          const index = parseInt(info.event.id);
+          const topics = getStoredTopics();
+          modalTopicIndex = index;
+          modalGroupId = topics[index].groupId;
+          openModal(topics[index]);
+        }
+      });
 
-  // ✅ Ensure rendering happens at the correct time
-  requestAnimationFrame(() => {
-    calendar.render();
-  });
-}
+      requestAnimationFrame(() => {
+        calendar.render();
+      });
+    }
+
 
     renderTodayView();
     renderCalendar();
+    updateXPUI();
+
 
     function exportData() {
       const topics = getStoredTopics();
@@ -456,7 +775,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `mind-palace-backup-${new Date().toISOString().slice(0,10)}.json`;
+      a.download = `mind-palace-backup-${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
     }
@@ -487,32 +806,67 @@
     }
 
     function requestNotificationPermission() {
-  if (Notification.permission !== 'granted') {
-    Notification.requestPermission();
-  }
-}
+      if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
+      }
+    }
 
-function notifyTodayTopics() {
-    const topics = getStoredTopics().filter(t => t.date === today && t.interval !== 0);
-    if (!topics.length) return;
+    function notifyTodayTopics() {
+      const topics = getStoredTopics().filter(t => t.date === today && t.interval !== 0);
+      if (!topics.length) return;
 
-    const topicList = topics.map(t => `• ${t.name} [${t.tag}]`).join('\n');
-    
-    const notification = new Notification("🧠 Mind Palace – Today's Review", {
-      body: topicList,
-      icon: "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+      const topicList = topics.map(t => `• ${t.name} [${t.tag}]`).join('\n');
+
+      const notification = new Notification("🧠 Mind Palace – Today's Review", {
+        body: topicList,
+        icon: "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+      });
+
+      const sound = new Audio("https://notificationsounds.com/storage/sounds/file-sounds-1141-pristine.mp3");
+      sound.play();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      requestNotificationPermission();
+      setTimeout(notifyTodayTopics, 2000); // Wait 2s after load
     });
 
-    const sound = new Audio("https://notificationsounds.com/storage/sounds/file-sounds-1141-pristine.mp3");
-    sound.play();
-  }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    requestNotificationPermission();
-    setTimeout(notifyTodayTopics, 2000); // Wait 2s after load
-  });
+    function resetTodayReviews() {
+      const topics = getStoredTopics();
+      const updated = topics.map(t => {
+        if (t.date === today && t.interval !== 0) {
+          return { ...t, reviewed: false, reviewedOn: null };
+        }
+        return t;
+      });
+      storeTopics(updated);
+      renderTodayView();
+    }
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      requestNotificationPermission();
+      setTimeout(notifyTodayTopics, 2000);
+
+      const xp = parseInt(localStorage.getItem('xp') || '0');
+      const xpEl = document.getElementById('xpDisplay');
+      if (xpEl) xpEl.textContent = `${xp}`;
+    });
+
+
+    function resetXPData() {
+      localStorage.setItem('xp', '0');
+      localStorage.setItem('level', '0');
+      localStorage.setItem('streak', '0');
+
+      document.getElementById('xpDisplay').textContent = '0';
+      document.getElementById('levelDisplay').textContent = '0';
+      document.getElementById('streakDisplay').textContent = '0';
+    }
 
 
   </script>
 </body>
+
 </html>
